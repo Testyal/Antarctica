@@ -41,7 +41,7 @@ public class Movement : MonoBehaviour
     void Start()
     {
         // DEBUG //
-        debugText = GameObject.Find("Debug Text").GetComponent<Text>();
+        // debugText = GameObject.Find("Debug Text").GetComponent<Text>();
         ///////////
 
         tilemap = GameObject.Find("Tilemap").GetComponent<Tilemap>();
@@ -60,27 +60,32 @@ public class Movement : MonoBehaviour
             {
                 hit = Physics2D.Raycast(transform.position, Vector2.down, 100.0f,
                     LayerMask.GetMask("Ground"));
-                RaycastHit2D anticipatedHit = Physics2D.Raycast(new Vector2(transform.position.x, transform.position.y) + 0.5f * Input.GetAxis("Horizontal") * Vector2.Perpendicular(hit.normal), 
+                RaycastHit2D anticipatedHit = Physics2D.Raycast(
+                    new Vector2(transform.position.x, transform.position.y) +
+                    0.5f * Input.GetAxis("Horizontal") * new Vector2(1.0f, 1.0f),
                     Vector2.down, 100.0f, LayerMask.GetMask("Ground"));
 
                 if (Input.GetKey(KeyCode.H))
                 {
                     // This slope mechanism works best when walking on a convex environment
-                    rigidbody.velocity = Input.GetAxis("Horizontal") * maxSpeed * new Vector2(anticipatedHit.normal.y, 
-                                            -anticipatedHit.normal.x);
+                    rigidbody.velocity = Input.GetAxis("Horizontal") * maxSpeed * new Vector2(anticipatedHit.normal.y,
+                                             -anticipatedHit.normal.x);
                 }
                 else
                 {
-                    // Whereas this works best when walking on a concave environment
-                    rigidbody.velocity = Input.GetAxis("Horizontal") * maxSpeed * new Vector2(anticipatedHit.normal.y, 
-                                                  -anticipatedHit.normal.x);
+                    if (anticipatedHit.point.y < 1.0f * hit.point.y)
+                    {
+                        rigidbody.velocity = Input.GetAxis("Horizontal") * maxSpeed * new Vector2(anticipatedHit.normal.y,
+                                                 -anticipatedHit.normal.x);
+                    }
+                    else
+                    {
+                        rigidbody.velocity = Input.GetAxis("Horizontal") * maxSpeed * Vector2.right;
+                    }
                 }
             }
         }
-        
-        
-        
-        
+
         if (isSliding)
         {
             hit = Physics2D.Raycast(transform.position, Vector2.down, 100.0f, LayerMask.GetMask("Ground"));
@@ -116,9 +121,9 @@ public class Movement : MonoBehaviour
             if (hit.collider != null)
             {
                 // DEBUG //
-                Debug.DrawLine(transform.position, hit.point, Color.red);
-                Debug.DrawLine(hit.point, hit.point + hit.normal, Color.green);
-                Debug.DrawLine(transform.position, transform.position + transform.right, Color.yellow);
+                // Debug.DrawLine(transform.position, hit.point, Color.red);
+                // Debug.DrawLine(hit.point, hit.point + hit.normal, Color.green);
+                // Debug.DrawLine(transform.position, transform.position + transform.right, Color.yellow);
                 ///////////
                 
 //                rigidbody.velocity -= new Vector2(hit.normal.x * slopeFriction, 0.0f);
@@ -163,8 +168,8 @@ public class Movement : MonoBehaviour
             }
 
             // DEBUG //
-            Debug.Log(tile);
-            Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.magenta);
+            // Debug.Log(tile);
+            // Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.magenta);
             ///////////
         }
         ///////////////
@@ -173,7 +178,7 @@ public class Movement : MonoBehaviour
     private void Update()
     {
         // DEBUG //
-        debugText.text = "Velocity: " + rigidbody.velocity.magnitude + "\nisOnGround: " + isOnGround;
+        // debugText.text = "Velocity: " + rigidbody.velocity.magnitude + "\nisOnGround: " + isOnGround;
         ///////////
         
         if (!isMovementDisabled && Input.GetKeyDown(KeyCode.LeftShift) && isOnGround)

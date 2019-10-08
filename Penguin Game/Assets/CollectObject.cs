@@ -11,7 +11,7 @@ public class CollectObject : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D other)
     {
         // DEBUG //
-        Debug.Log("Collided with " + other );
+        // Debug.Log("Collided with " + other );
         ///////////
         
         if (other.gameObject.GetComponent<Collectable>() != null)
@@ -20,7 +20,7 @@ public class CollectObject : MonoBehaviour
             collectedIceCores++;
             
             // DEBUG //
-            Debug.Log("Collected " + collectedIceCores + " ice cores");
+            // Debug.Log("Collected " + collectedIceCores + " ice cores");
             ///////////
         }
     }

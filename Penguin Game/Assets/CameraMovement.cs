@@ -34,6 +34,6 @@ public class CameraMovement : MonoBehaviour
             camera.orthographicSize = 5.0f;
         }
 
-        transform.position = penguin.transform.position + new Vector3(0.0f, 2.0f, -1.0f);
+        transform.position = penguin.transform.position + new Vector3(0.0f, 0.0f, -1.0f);
     }
 }
