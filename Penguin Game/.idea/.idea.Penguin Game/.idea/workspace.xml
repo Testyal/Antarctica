@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="5fb759e4-b145-4ace-ab40-06489ea9841c" name="Default Changelist" comment="" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Assets/Collectable.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/ReadSign.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/CollectObject.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Sign.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/Movement.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/GlobalPhysics.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/CameraMovement.cs" root0="FORCE_HIGHLIGHTING" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/Assets/GlobalPhysics.cs" />
+        <option value="$PROJECT_DIR$/Assets/Collectable.cs" />
+        <option value="$PROJECT_DIR$/Assets/CollectObject.cs" />
+        <option value="$PROJECT_DIR$/Assets/CameraMovement.cs" />
+        <option value="$PROJECT_DIR$/Assets/Sign.cs" />
+        <option value="$PROJECT_DIR$/Assets/ReadSign.cs" />
+        <option value="$PROJECT_DIR$/Assets/Movement.cs" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectId" id="1Rh5EbQoBZKZ0k9HeyJ00N8p5A2" />
+  <component name="PropertiesComponent">
+    <property name="Discover.Launch.Via.Unity" value="true" />
+    <property name="Rider.DefaultBreakpoints.AreToggled" value="true" />
+    <property name="Rider.ProjectViewActivator.IsNotFirstRun" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Attach to Unity Editor.Attach to Unity Editor &amp; Play">
+    <configuration name="Attach to Unity Editor &amp; Play" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="UNITY_ATTACH_AND_PLAY" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" pid="71033">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="71033" />
+      <option name="userSelectedPid" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Attach to Unity Editor" type="UNITY_DEBUG_RUN_CONFIGURATION" factoryName="Unity Debug" show_console_on_std_err="false" show_console_on_std_out="false" port="50000" address="localhost" pid="71033">
+      <option name="allowRunningInParallel" value="false" />
+      <option name="listenPortForConnections" value="false" />
+      <option name="pid" value="71033" />
+      <option name="userSelectedPid" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5fb759e4-b145-4ace-ab40-06489ea9841c" name="Default Changelist" comment="" />
+      <created>1570106377536</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1570106377536</updated>
+      <workItem from="1570106381825" duration="48050000" />
+      <workItem from="1570376063177" duration="3470000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnityProjectConfiguration" hasMinimizedUI="true" />
+  <component name="UnityUnitTestConfiguration" currentTestLauncher="EditMode" />
+  <component name="VcsManagerConfiguration">
+    <option name="LOCAL_CHANGES_DETAILS_PREVIEW_SHOWN" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state width="1638" height="363" key="GridCell.Tab.0.bottom" />
+    <state width="1638" height="363" key="GridCell.Tab.0.bottom/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.bottom/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.center" />
+    <state width="1638" height="363" key="GridCell.Tab.0.center/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.center/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.left" />
+    <state width="1638" height="363" key="GridCell.Tab.0.left/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.left/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.right" />
+    <state width="1638" height="363" key="GridCell.Tab.0.right/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.0.right/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.bottom" />
+    <state width="1638" height="363" key="GridCell.Tab.1.bottom/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.bottom/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.center" />
+    <state width="1638" height="363" key="GridCell.Tab.1.center/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.center/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.left" />
+    <state width="1638" height="363" key="GridCell.Tab.1.left/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.left/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.right" />
+    <state width="1638" height="363" key="GridCell.Tab.1.right/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.1.right/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.bottom" />
+    <state width="1638" height="363" key="GridCell.Tab.2.bottom/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.bottom/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.center" />
+    <state width="1638" height="363" key="GridCell.Tab.2.center/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.center/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.left" />
+    <state width="1638" height="363" key="GridCell.Tab.2.left/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.left/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.right" />
+    <state width="1638" height="363" key="GridCell.Tab.2.right/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.2.right/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.bottom" />
+    <state width="1638" height="363" key="GridCell.Tab.3.bottom/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.bottom/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.center" />
+    <state width="1638" height="363" key="GridCell.Tab.3.center/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.center/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.left" />
+    <state width="1638" height="363" key="GridCell.Tab.3.left/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.left/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.right" />
+    <state width="1638" height="363" key="GridCell.Tab.3.right/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.3.right/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.bottom" />
+    <state width="1638" height="363" key="GridCell.Tab.4.bottom/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.bottom/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.center" />
+    <state width="1638" height="363" key="GridCell.Tab.4.center/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.center/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.left" />
+    <state width="1638" height="363" key="GridCell.Tab.4.left/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.left/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.right" />
+    <state width="1638" height="363" key="GridCell.Tab.4.right/1920.1080/3360.2100" />
+    <state width="1638" height="363" key="GridCell.Tab.4.right/3360.2100" />
+    <state x="440" y="264" key="Rider.ProjectTemplateDialog.Size" />
+    <state x="440" y="264" key="Rider.ProjectTemplateDialog.Size/1920.1080/3360.2100" />
+    <state x="296" y="174" key="SettingsEditor" />
+    <state x="296" y="174" key="SettingsEditor/1920.1080/3360.2100" />
+    <state x="296" y="174" key="SettingsEditor/3360.2100" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/1920.1080/3360.2100" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/3360.2100" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" suspend="NONE" type="DotNet Exception Breakpoints">
+          <properties exception="System.Threading.ThreadAbortException" displayValue="System.Threading.ThreadAbortException" />
+          <option name="timeStamp" value="1" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+</project>
