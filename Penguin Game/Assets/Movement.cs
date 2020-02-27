@@ -54,6 +54,15 @@ public class Movement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        // This block of code determines the usual movement of the penguin while they aren't sliding. 
+        // The variables hit (which is a member field of the movement script for some reason) and anticipatedHit 
+        // are raycasts emanating downwards from the penguin's position and from a position a little way ahead
+        // of them respectively.
+        // While the "H" key isn't pressed (which was there to test different ways of walking on slopes), 
+        // the script checks if the penguin is moving downwards by comparing the height of the first point hit
+        // by the raycast "hit", and the height of the first point hit by "anticipatedHit". If it is, the
+        // velocity given to the penguin points in the direction of the slope (calculated by turning the 
+        // normal of the slope 90 degrees clockwise). Otherwise, the penguing is just given a horizontal velocity.
         if (!isMovementDisabled && Mathf.Abs(Input.GetAxis("Horizontal")) > 0.05f && !isSliding)
         {
             if (isOnGround)
@@ -86,6 +95,13 @@ public class Movement : MonoBehaviour
             }
         }
 
+        // This code determines the movement of the penguin while they are sliding.
+        // As before, it checks the slope of the ground below the penguin. It ensures the penguin is always facing
+        // towards the ground, and accelerates them across the slope, with acceleration determined by the slope's
+        // steepness. The variable slidingSpeed was probably used in the past, but it's been replaced with just
+        // modifying the rigidbody's velocity directly.
+        // If the penguin isn't on the ground, it points them in the direction of their velocity, making a nice little 
+        // diving motion.
         if (isSliding)
         {
             hit = Physics2D.Raycast(transform.position, Vector2.down, 100.0f, LayerMask.GetMask("Ground"));
@@ -148,12 +164,14 @@ public class Movement : MonoBehaviour
         {
             var adjustedContact = contactPoint.point - 0.2f * contactPoint.normal;
             string tile = "";
-        
+
             if (tilemap.HasTile(tilemap.WorldToCell(adjustedContact)))
-            { 
+            {
                 tile = tilemap.GetTile(tilemap.WorldToCell(adjustedContact)).name;
             }
 
+            // Code for breaking breakable blocks when sliding into them. They're not in the example level now, but they
+            // have been in the past and they worked alright.
             if (tile == "Breakable" && isSliding && contactPoint.relativeVelocity.magnitude > 10.0f)
             {
                 tilemap.SetTile(tilemap.WorldToCell(adjustedContact), null);
@@ -172,15 +190,20 @@ public class Movement : MonoBehaviour
             // Debug.DrawLine(contactPoint.point, contactPoint.point + contactPoint.normal, Color.magenta);
             ///////////
         }
-        ///////////////
     }
 
+    // GetKeyDown events have a tendency to fail in FixedUpdate code, so to solve this for the prototype, there are two
+    // bool variables isJumping and isSliding which check for the left shift and down arrow keys respectively in the
+    // Update method.
     private void Update()
     {
         // DEBUG //
         // debugText.text = "Velocity: " + rigidbody.velocity.magnitude + "\nisOnGround: " + isOnGround;
         ///////////
         
+        // The left shift key handles jumping. While on the ground, jumping is handled in FixedUpdate and it's probably
+        // the clunkiest and worst implemented mechanic in the game. Sliding, however, works great. By design, the faster
+        // the penguin is sliding, the higher they jump.
         if (!isMovementDisabled && Input.GetKeyDown(KeyCode.LeftShift) && isOnGround)
         {
             if (isSliding)
@@ -201,6 +224,7 @@ public class Movement : MonoBehaviour
             isJumping = false;
         }
 
+        // Pressing the down arrow key makes the penguin jump up a little bit to initiate a diving motion.
         if (!isMovementDisabled && Input.GetKeyDown(KeyCode.DownArrow))
         {
             GetComponent<BoxCollider2D>().size *= new Vector2(1.0f, 0.1f);
@@ -234,7 +258,10 @@ public class Movement : MonoBehaviour
         StartCoroutine("OnGround");
     }
 
-
+    // This method exists to make sure small deviations from the ground (such as by stray pixels or the slope mechanic 
+    // being a bit chunky) don't affect the player when they choose to jump while sliding, since jumping only works
+    // when they're on the ground. If deviations did affect the player, then they could go tumbling into a chasm through
+    // no fault of their own.
     private IEnumerator OnGround()
     {
         yield return new WaitForSeconds(0.1f);
