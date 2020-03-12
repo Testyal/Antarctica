@@ -288,9 +288,18 @@ public class Movement : MonoBehaviour
      *    |              \
      *    |                \
      *    |                  \
-     *    | pressing "slide"   \
-     *    v                      \
-     *  Flying <-------------> Sliding
+     *    |                    \
+     *    |                      \
+     *    |                        \
+     *    |                          \
+     *    |                            \
+     *    |                              \
+     *    |                                \
+     *    |                                  \
+     *    | pressing "slide"                   \
+     *    |                                      \
+     *    v       pressing or releasing "jump"     \
+     *  Flying <-------------------------------> Sliding
      * 
      */
     enum MovementState
