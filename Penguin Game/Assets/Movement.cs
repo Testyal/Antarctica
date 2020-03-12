@@ -344,6 +344,23 @@ public class Movement : MonoBehaviour
         rigidbody.GetContacts(contactPoints);
 
         if (contactPoints.Count == 0) return MovementState.Jumping;
+        
+        var anticipatedGroundSlope = Physics2D.Raycast(
+            new Vector2(transform.position.x, transform.position.y) + 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
+            Vector2.down, 
+            100.0f, 
+            LayerMask.GetMask("Ground")
+            );
+        
+        if (anticipatedGroundSlope.point.y < 1.0f * hit.point.y)
+        {
+            rigidbody.velocity = horizontalAxis * maxSpeed * new Vector2(anticipatedGroundSlope.normal.y, -anticipatedGroundSlope.normal.x);
+        }
+        else
+        {
+            rigidbody.velocity = horizontalAxis * maxSpeed * Vector2.right;
+        }
+
         return MovementState.Grounded;
     }
 
