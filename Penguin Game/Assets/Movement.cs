@@ -13,6 +13,8 @@ using UnityEngine.XR;
 
 public class Movement : MonoBehaviour
 {
+    
+    
     private Rigidbody2D rigidbody;
     private Tilemap tilemap;
     private TilemapCollider2D tileCollider;
@@ -268,5 +270,49 @@ public class Movement : MonoBehaviour
 
         isOnGround = false;
     }
+    
+    
+    
+    enum MovementState
+    {
+        Grounded,
+        Sliding,
+        Jumping,
+        Flying
+    }
+
+    private MovementState movementState;
+
+    void FixedUpdate(MovementState state)
+    {
+        
+        float horizontalAxis = Input.GetAxis("Horizontal");
+
+        switch (state)
+        {
+            case MovementState.Grounded:
+                this.movementState = this.GroundedFixedUpdate(Time.deltaTime, horizontalAxis);
+                break;
+            default: 
+                break; 
+        }
+
+    }
+
+    MovementState GroundedFixedUpdate(float deltaTime, float horizontalAxis)
+    {
+        List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count == 0) return MovementState.Jumping;
+        return MovementState.Grounded;
+    }
+
+    MovementState FlyingFixedUpdate(float deltaTime)
+    {
+        return MovementState.Flying;
+    }
 }
+
+
 
