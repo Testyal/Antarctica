@@ -386,6 +386,9 @@ public class Movement : MonoBehaviour
         rigidbody.GetContacts(contactPoints);
 
         if (contactPoints.Count > 0) return MovementState.Sliding;
+
+        transform.up = rigidbody.velocity;
+        
         return MovementState.Flying;
     }
 }
