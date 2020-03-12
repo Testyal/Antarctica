@@ -272,7 +272,27 @@ public class Movement : MonoBehaviour
     }
     
     
-    
+    /**
+     * Represents the current governing behavior of the penguin.
+     * Is capable of changing between states according to this diagram:
+     *
+     *           pressing "jump"
+     * Grounded -----------------> Jumping
+     *    ^ ^
+     *    |  \
+     *    |    \ releasing "slide"
+     *    |      \
+     *    |        \
+     *    |          \
+     *    |            \
+     *    |              \
+     *    |                \
+     *    |                  \
+     *    | pressing "slide"   \
+     *    v                      \
+     *  Flying <-------------> Sliding
+     * 
+     */
     enum MovementState
     {
         Grounded,
@@ -280,9 +300,12 @@ public class Movement : MonoBehaviour
         Jumping,
         Flying
     }
-
+    
     private MovementState movementState;
-
+    
+    /**
+     * Called by Penguin.FixedUpdate().
+     */
     void FixedUpdate(MovementState state)
     {
         
@@ -301,15 +324,33 @@ public class Movement : MonoBehaviour
 
     MovementState GroundedFixedUpdate(float deltaTime, float horizontalAxis)
     {
-        List<ContactPoint2D> contactPoints = new List<ContactPoint2D>();
+        var contactPoints = new List<ContactPoint2D>();
         rigidbody.GetContacts(contactPoints);
 
         if (contactPoints.Count == 0) return MovementState.Jumping;
         return MovementState.Grounded;
     }
 
+    MovementState JumpingFixedUpdate(float deltaTime)
+    {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count == 0) return MovementState.Jumping;
+        return MovementState.Flying;
+    }
+
+    MovementState SlidingFixedUpdate(float deltaTime)
+    {
+        return MovementState.Sliding;
+    }
+    
     MovementState FlyingFixedUpdate(float deltaTime)
     {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count == 0) return MovementState.Jumping;
         return MovementState.Flying;
     }
 }
