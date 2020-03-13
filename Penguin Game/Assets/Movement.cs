@@ -1,38 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using Vector2 = UnityEngine.Vector2;
-using Vector3 = UnityEngine.Vector3;
 
 
 /**
  * Represents the current governing behavior of the penguin.
- * Is capable of changing between states according to this diagram:
- *
- *            pressing "jump"
- * Grounded <-----------------> Jumping
- *    ^ ^
- *    |  \
- *    |    \ releasing "slide"
- *    |      \
- *    |        \
- *    |          \
- *    |            \
- *    |              \
- *    |                \
- *    |                  \
- *    |                    \
- *    |                      \
- *    |                        \
- *    |                          \
- *    |                            \
- *    |                              \
- *    |                                \
- *    |                                  \
- *    | pressing "slide"                   \
- *    |                                      \
- *    v       pressing or releasing "jump"     \
- *  Flying <-------------------------------> Sliding
  */
 enum MovementState
 {
@@ -44,134 +16,7 @@ enum MovementState
     Landing
 }
 
-/*
-public class Movement : MonoBehaviour
-{
-    
-    private Rigidbody2D rigidbody;
-    
-    [SerializeField] private float maxGroundedSpeed;
-    [SerializeField] private float maxSlidingSpeed;
-
-    [SerializeField] private float slidingAcceleration;
-    
-    private void Start()
-    {
-        this.rigidbody = GetComponent<Rigidbody2D>();
-    }
-    
-    private MovementState movementState = MovementState.Jumping;
-
-    private void FixedUpdate()
-    {
-        this.FixedUpdate(this.movementState, Time.fixedDeltaTime, Input.GetAxis("Horizontal"));
-    }
-
-    /**
-     * Called by Penguin.FixedUpdate().
-     
-    private void FixedUpdate(MovementState state, float delta, float horizontalAxis)
-    {
-
-        switch (state)
-        {
-            case MovementState.Grounded:
-                this.movementState = this.GroundedFixedUpdate(delta, horizontalAxis);
-                break;
-            case MovementState.Jumping:
-                this.movementState = this.JumpingFixedUpdate(delta);
-                break;
-            case MovementState.Sliding:
-                this.movementState = this.SlidingFixedUpdate(delta);
-                break;
-            case MovementState.Flying:
-                this.movementState = this.FlyingFixedUpdate(delta);
-                break;
-        }
-
-    }
-
-    private MovementState GroundedFixedUpdate(float delta, float horizontalAxis)
-    {
-        var contactPoints = new List<ContactPoint2D>();
-        rigidbody.GetContacts(contactPoints);
-
-        if (contactPoints.Count == 0) return MovementState.Jumping;
-
-        var anticipatedGroundSlope = Physics2D.Raycast(
-            new Vector2(transform.position.x, transform.position.y) + 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
-            Vector2.down,
-            100.0f,
-            LayerMask.GetMask("Ground")
-        );
-
-        if (anticipatedGroundSlope.point.y < 1.0f * anticipatedGroundSlope.point.y)
-        {
-            rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed *
-                                 new Vector2(anticipatedGroundSlope.normal.y, -anticipatedGroundSlope.normal.x);
-        }
-        else
-        {
-            rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed * Vector2.right;
-        }
-
-        return MovementState.Grounded;
-    }
-
-    private MovementState JumpingFixedUpdate(float delta)
-    {
-        var contactPoints = new List<ContactPoint2D>();
-        rigidbody.GetContacts(contactPoints);
-
-        if (contactPoints.Count > 0) return MovementState.Grounded;
-        return MovementState.Jumping;
-    }
-
-    private MovementState SlidingFixedUpdate(float delta)
-    {
-        var contactPoints = new List<ContactPoint2D>();
-        rigidbody.GetContacts(contactPoints);
-
-        if (contactPoints.Count == 0) return MovementState.Flying;
-
-        var groundSlope = Physics2D.Raycast(
-            transform.position,
-            Vector2.down,
-            100.0f,
-            LayerMask.GetMask("Ground")
-        ).normal;
-
-        // Increase penguin's speed if not too fast.
-        if (this.rigidbody.velocity.magnitude < this.maxSlidingSpeed)
-            this.rigidbody.velocity += slidingAcceleration * groundSlope.x * delta * new Vector2(transform.up.x, transform.up.y);
-
-        // Slide headfirst.
-        transform.right = -groundSlope;
-
-        return MovementState.Sliding;
-    }
-
-    private MovementState FlyingFixedUpdate(float delta)
-    {
-        var contactPoints = new List<ContactPoint2D>();
-        rigidbody.GetContacts(contactPoints);
-
-        if (contactPoints.Count > 0) return MovementState.Sliding;
-
-        transform.up = rigidbody.velocity;
-
-        return MovementState.Flying;
-    }
-
-}
-*/
-
-interface IMovementRegime
-{
-    MovementState FixedUpdate(float delta, float horizontalAxis);
-}
-
-class GroundedMovementRegime: IMovementRegime
+class GroundedMovementRegime
 {
     private readonly BoxCollider2D collider;
     readonly Rigidbody2D rigidbody;
@@ -502,6 +347,127 @@ class Movement: MonoBehaviour
 }
 
 
+/*
+public class Movement : MonoBehaviour
+{
+    
+    private Rigidbody2D rigidbody;
+    
+    [SerializeField] private float maxGroundedSpeed;
+    [SerializeField] private float maxSlidingSpeed;
+
+    [SerializeField] private float slidingAcceleration;
+    
+    private void Start()
+    {
+        this.rigidbody = GetComponent<Rigidbody2D>();
+    }
+    
+    private MovementState movementState = MovementState.Jumping;
+
+    private void FixedUpdate()
+    {
+        this.FixedUpdate(this.movementState, Time.fixedDeltaTime, Input.GetAxis("Horizontal"));
+    }
+
+    /**
+     * Called by Penguin.FixedUpdate().
+     
+    private void FixedUpdate(MovementState state, float delta, float horizontalAxis)
+    {
+
+        switch (state)
+        {
+            case MovementState.Grounded:
+                this.movementState = this.GroundedFixedUpdate(delta, horizontalAxis);
+                break;
+            case MovementState.Jumping:
+                this.movementState = this.JumpingFixedUpdate(delta);
+                break;
+            case MovementState.Sliding:
+                this.movementState = this.SlidingFixedUpdate(delta);
+                break;
+            case MovementState.Flying:
+                this.movementState = this.FlyingFixedUpdate(delta);
+                break;
+        }
+
+    }
+
+    private MovementState GroundedFixedUpdate(float delta, float horizontalAxis)
+    {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count == 0) return MovementState.Jumping;
+
+        var anticipatedGroundSlope = Physics2D.Raycast(
+            new Vector2(transform.position.x, transform.position.y) + 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
+            Vector2.down,
+            100.0f,
+            LayerMask.GetMask("Ground")
+        );
+
+        if (anticipatedGroundSlope.point.y < 1.0f * anticipatedGroundSlope.point.y)
+        {
+            rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed *
+                                 new Vector2(anticipatedGroundSlope.normal.y, -anticipatedGroundSlope.normal.x);
+        }
+        else
+        {
+            rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed * Vector2.right;
+        }
+
+        return MovementState.Grounded;
+    }
+
+    private MovementState JumpingFixedUpdate(float delta)
+    {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count > 0) return MovementState.Grounded;
+        return MovementState.Jumping;
+    }
+
+    private MovementState SlidingFixedUpdate(float delta)
+    {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count == 0) return MovementState.Flying;
+
+        var groundSlope = Physics2D.Raycast(
+            transform.position,
+            Vector2.down,
+            100.0f,
+            LayerMask.GetMask("Ground")
+        ).normal;
+
+        // Increase penguin's speed if not too fast.
+        if (this.rigidbody.velocity.magnitude < this.maxSlidingSpeed)
+            this.rigidbody.velocity += slidingAcceleration * groundSlope.x * delta * new Vector2(transform.up.x, transform.up.y);
+
+        // Slide headfirst.
+        transform.right = -groundSlope;
+
+        return MovementState.Sliding;
+    }
+
+    private MovementState FlyingFixedUpdate(float delta)
+    {
+        var contactPoints = new List<ContactPoint2D>();
+        rigidbody.GetContacts(contactPoints);
+
+        if (contactPoints.Count > 0) return MovementState.Sliding;
+
+        transform.up = rigidbody.velocity;
+
+        return MovementState.Flying;
+    }
+
+}
+*/
 
    // Update is called once per frame
     /* void FixedUpdate()
