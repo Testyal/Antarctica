@@ -16,46 +16,97 @@ enum MovementState
     Landing
 }
 
-class GroundedMovementRegime
+
+class MovementData
 {
-    private readonly BoxCollider2D collider;
-    readonly Rigidbody2D rigidbody;
-    readonly Transform transform;
+    public readonly BoxCollider2D collider;
+    public readonly Rigidbody2D rigidbody;
+    public readonly Transform transform;
 
-    readonly float maxGroundedSpeed;
-
-    public GroundedMovementRegime(BoxCollider2D collider, Rigidbody2D rigidbody, Transform transform, float maxGroundedSpeed)
+    public MovementData(BoxCollider2D collider, Rigidbody2D rigidbody, Transform transform)
     {
         this.collider = collider;
         this.rigidbody = rigidbody;
         this.transform = transform;
+    }
+}
 
+
+abstract class MovementRegime
+{
+    private MovementData movementData;
+
+    protected BoxCollider2D Collider => movementData.collider;
+    protected Rigidbody2D Rigidbody => movementData.rigidbody;
+    protected Transform Transform => movementData.transform;
+
+    protected MovementRegime(MovementData movementData)
+    {
+        this.movementData = movementData;
+    }
+
+    public abstract MovementState FixedUpdate(float delta);
+
+    public virtual MovementState FixedUpdate(float delta, float horizontalAxis)
+    {
+        return this.FixedUpdate(delta);
+    }
+}
+
+
+class GroundedMovementRegime: MovementRegime
+{
+    private readonly float maxGroundedSpeed;
+
+    public GroundedMovementRegime(
+        MovementData movementData,
+        float maxGroundedSpeed
+        ) : base(movementData)
+    {
         this.maxGroundedSpeed = maxGroundedSpeed;
     }
     
-    public MovementState FixedUpdate(float delta, float horizontalAxis)
+    public override MovementState FixedUpdate(float delta, float horizontalAxis)
     {
         var contactPoints = new List<ContactPoint2D>();
-        this.rigidbody.GetContacts(contactPoints);
+        this.Rigidbody.GetContacts(contactPoints);
 
         if (contactPoints.Count == 0) return MovementState.Jumping;
 
+        var position = this.Transform.position;
+        var position2d = new Vector2(position.x, position.y);
+
+        var behindGround = Physics2D.Raycast(
+            position2d - 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
+            Vector2.down,
+            100.0f,
+            LayerMask.GetMask("Ground")
+        ); 
+        
         var anticipatedGround = Physics2D.Raycast(
-            new Vector2(this.transform.position.x, this.transform.position.y) + 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
+            position2d + 0.5f * horizontalAxis * new Vector2(1.0f, 1.0f),
             Vector2.down,
             100.0f,
             LayerMask.GetMask("Ground")
         );
 
-        this.rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed * new Vector2(anticipatedGround.normal.y, -anticipatedGround.normal.x);
-        
+        if (Mathf.Abs(anticipatedGround.normal.x) > Mathf.Abs(behindGround.normal.x))
+            this.Rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed * new Vector2(anticipatedGround.normal.y, -anticipatedGround.normal.x);
+        else
+            this.Rigidbody.velocity = horizontalAxis * this.maxGroundedSpeed * new Vector2(behindGround.normal.y, -behindGround.normal.x);
+
         return MovementState.Grounded;
+    }
+
+    public override MovementState FixedUpdate(float delta)
+    {
+        return this.FixedUpdate(delta, 0.0f);
     }
 
     public MovementState EnterFlying()
     {
-        this.collider.size *= new Vector2(1.0f, 0.1f);
-        this.rigidbody.velocity += new Vector2(0.0f, 2.0f);
+        this.Collider.size *= new Vector2(1.0f, 0.1f);
+        this.Rigidbody.velocity += new Vector2(0.0f, 2.0f);
 
         return MovementState.Flying;
     }
@@ -266,7 +317,9 @@ class Movement: MonoBehaviour
         var transform = this.GetComponent<Transform>();
         var rigidbody = this.GetComponent<Rigidbody2D>();
         
-        this.groundedMovementRegime = new GroundedMovementRegime(collider, rigidbody, transform, maxGroundSpeed);
+        var movementData = new MovementData(collider, rigidbody, transform);
+        
+        this.groundedMovementRegime = new GroundedMovementRegime(movementData, maxGroundSpeed);
         this.jumpingMovementRegime = new JumpingMovementRegime(rigidbody);
         this.flyingMovementRegime = new FlyingMovementRegime(rigidbody, transform);
         this.slidingMovementRegime = new SlidingMovementRegime(collider, rigidbody, transform, maxSlidingSpeed, slidingAcceleration);
